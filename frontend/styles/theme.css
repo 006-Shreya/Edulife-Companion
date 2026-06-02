@@ -1,0 +1,105 @@
+/* EduLife Companion — Design tokens & themes */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --edl-font: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+
+  --edl-primary: #003366;
+  --edl-primary-light: #004d99;
+  --edl-primary-dark: #00264d;
+  --edl-accent: #00aeef;
+  --edl-gold: #ffd700;
+  --edl-coral: #ff6f61;
+
+  --edl-bg: #f0f6fc;
+  --edl-bg-elevated: #ffffff;
+  --edl-surface: rgba(255, 255, 255, 0.92);
+  --edl-text: #1e293b;
+  --edl-text-muted: #64748b;
+  --edl-border: rgba(0, 51, 102, 0.12);
+
+  --edl-sidebar-bg: linear-gradient(180deg, #003366 0%, #00264d 100%);
+  --edl-topbar-bg: rgba(0, 51, 102, 0.97);
+  --edl-overlay: rgba(0, 20, 40, 0.55);
+
+  --edl-radius-sm: 8px;
+  --edl-radius: 14px;
+  --edl-radius-lg: 20px;
+  --edl-shadow-sm: 0 2px 8px rgba(0, 51, 102, 0.06);
+  --edl-shadow: 0 8px 24px rgba(0, 51, 102, 0.1);
+  --edl-shadow-lg: 0 16px 40px rgba(0, 51, 102, 0.14);
+
+  --edl-sidebar-width: 260px;
+  --edl-topbar-height: 64px;
+  --edl-transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --edl-transition-fast: 0.15s ease;
+}
+
+[data-theme='dark'] {
+  --edl-bg: #0a1628;
+  --edl-bg-elevated: #132238;
+  --edl-surface: rgba(19, 34, 56, 0.95);
+  --edl-text: #e8f1fa;
+  --edl-text-muted: #94a3b8;
+  --edl-border: rgba(0, 174, 239, 0.15);
+
+  --edl-sidebar-bg: linear-gradient(180deg, #0d2137 0%, #061018 100%);
+  --edl-topbar-bg: rgba(10, 22, 40, 0.98);
+  --edl-overlay: rgba(0, 0, 0, 0.65);
+
+  --edl-shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.25);
+  --edl-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --edl-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme='dark'].edl-app::before {
+  opacity: 0.35;
+}
+
+[data-theme='dark'].edl-app::after {
+  background: linear-gradient(135deg, rgba(10, 22, 40, 0.92) 0%, rgba(0, 38, 77, 0.88) 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--edl-font);
+  color: var(--edl-text);
+  background: var(--edl-bg);
+  line-height: 1.6;
+  transition: background var(--edl-transition), color var(--edl-transition);
+}
+
+@keyframes edl-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes edl-slide-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes edl-pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.edl-animate-in {
+  animation: edl-fade-in 0.5s var(--edl-transition) forwards;
+}
+
+.edl-stagger-1 { animation-delay: 0.05s; opacity: 0; }
+.edl-stagger-2 { animation-delay: 0.1s; opacity: 0; }
+.edl-stagger-3 { animation-delay: 0.15s; opacity: 0; }
+.edl-stagger-4 { animation-delay: 0.2s; opacity: 0; }
+.edl-stagger-5 { animation-delay: 0.25s; opacity: 0; }
+.edl-stagger-6 { animation-delay: 0.3s; opacity: 0; }

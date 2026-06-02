@@ -1,0 +1,309 @@
+/* App shell — sidebar, topbar, main */
+.edl-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.edl-app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('/assets/mainbg.jpeg') center / cover no-repeat fixed;
+  z-index: -2;
+  transition: opacity var(--edl-transition);
+}
+
+.edl-app::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 51, 102, 0.75) 0%, rgba(0, 38, 77, 0.82) 50%, rgba(0, 20, 40, 0.88) 100%);
+  z-index: -1;
+}
+
+.edl-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--edl-overlay);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--edl-transition), visibility var(--edl-transition);
+  backdrop-filter: blur(2px);
+}
+
+.edl-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.edl-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--edl-sidebar-width);
+  height: 100vh;
+  background: var(--edl-sidebar-bg);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform var(--edl-transition);
+  box-shadow: var(--edl-shadow-lg);
+  overflow: hidden;
+}
+
+.edl-sidebar.open {
+  transform: translateX(0);
+}
+
+.edl-sidebar-header {
+  padding: 1.25rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.edl-sidebar-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  transition: transform var(--edl-transition-fast);
+}
+
+.edl-sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+.edl-sidebar-title {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.edl-sidebar-title i {
+  color: var(--edl-gold);
+}
+
+.edl-sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.edl-sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-left: 3px solid transparent;
+  transition: background var(--edl-transition-fast), color var(--edl-transition-fast),
+    border-color var(--edl-transition-fast), padding-left var(--edl-transition-fast);
+}
+
+.edl-sidebar-nav a i {
+  width: 1.25rem;
+  text-align: center;
+  color: var(--edl-accent);
+  transition: transform var(--edl-transition-fast);
+}
+
+.edl-sidebar-nav a:hover {
+  background: rgba(0, 119, 204, 0.35);
+  color: #fff;
+  padding-left: 1.5rem;
+}
+
+.edl-sidebar-nav a:hover i {
+  transform: scale(1.1);
+}
+
+.edl-sidebar-nav a.active {
+  background: rgba(0, 174, 239, 0.25);
+  border-left-color: var(--edl-gold);
+  color: #fff;
+}
+
+.edl-sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.edl-topbar {
+  position: sticky;
+  top: 0;
+  height: var(--edl-topbar-height);
+  background: var(--edl-topbar-bg);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  z-index: 1030;
+  box-shadow: var(--edl-shadow-sm);
+  transition: background var(--edl-transition);
+}
+
+.edl-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.edl-menu-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: var(--edl-radius-sm);
+  cursor: pointer;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--edl-transition-fast), transform var(--edl-transition-fast);
+}
+
+.edl-menu-btn:hover {
+  background: rgba(0, 174, 239, 0.4);
+  transform: scale(1.05);
+}
+
+.edl-topbar-brand {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: none;
+}
+
+.edl-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.edl-user-chip {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.edl-topbar-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--edl-radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background var(--edl-transition-fast);
+}
+
+.edl-topbar-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.edl-theme-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--edl-gold);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--edl-transition-fast), transform var(--edl-transition-fast);
+}
+
+.edl-theme-btn:hover {
+  background: rgba(0, 174, 239, 0.35);
+  transform: rotate(15deg);
+}
+
+.edl-main {
+  flex: 1;
+  padding: 1.5rem;
+  margin-left: 0;
+  transition: margin-left var(--edl-transition);
+  min-height: calc(100vh - var(--edl-topbar-height));
+}
+
+.edl-footer {
+  background: var(--edl-topbar-bg);
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.85rem;
+}
+
+@media (min-width: 992px) {
+  .edl-sidebar {
+    transform: translateX(0);
+  }
+
+  .edl-main {
+    margin-left: var(--edl-sidebar-width);
+  }
+
+  .edl-menu-btn {
+    display: none;
+  }
+
+  .edl-topbar-brand {
+    display: block;
+  }
+
+  .edl-overlay {
+    display: none !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .edl-user-chip {
+    display: none;
+  }
+
+  .edl-topbar-link span.link-text {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .edl-main {
+    padding: 1rem;
+  }
+
+  .edl-topbar {
+    padding: 0 0.75rem;
+  }
+}

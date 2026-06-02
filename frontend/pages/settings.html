@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | EduLife Companion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles/theme.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="stylesheet" href="/styles/settings.css">
+</head>
+<body class="edl-app edl-settings-page">
+
+  <div class="edl-overlay" id="edl-overlay"></div>
+
+  <aside class="edl-sidebar" id="edl-sidebar">
+    <div class="edl-sidebar-header">
+      <img class="edl-sidebar-logo" src="/assets/logo.png" alt="EduLife" />
+      <div class="edl-sidebar-title"><i class="fas fa-graduation-cap"></i> EduLife</div>
+    </div>
+    <nav class="edl-sidebar-nav">
+      <a href="landingPage.html"><i class="fas fa-th-large"></i> Dashboard</a>
+      <a href="home.html"><i class="fas fa-chart-line"></i> Study Tracker</a>
+      <a href="attendance1.html"><i class="fas fa-user-check"></i> Attendance</a>
+      <a href="pomodoro.html"><i class="fas fa-stopwatch"></i> Pomodoro</a>
+      <a href="chat.html"><i class="fas fa-comments"></i> AI Chat</a>
+      <a href="expenseTracker.html"><i class="fas fa-wallet"></i> Expenses</a>
+      <a href="timeTable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
+      <a href="reminder.html"><i class="fas fa-bell"></i> Reminders</a>
+      <a href="upload.html"><i class="fas fa-upload"></i> Documents</a>
+      <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+    <div class="edl-sidebar-footer">&copy; EduLife Companion</div>
+  </aside>
+
+  <header class="edl-topbar">
+    <div class="edl-topbar-left">
+      <button type="button" class="edl-menu-btn" id="edl-menu-btn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+      <span class="edl-topbar-brand">Settings</span>
+    </div>
+    <div class="edl-topbar-right">
+      <button type="button" class="edl-theme-btn" data-edl-theme-toggle aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+      <a href="landingPage.html" class="edl-topbar-link"><i class="fas fa-th-large"></i><span class="link-text">Dashboard</span></a>
+    </div>
+  </header>
+
+  <main class="edl-main edl-settings-main">
+    <div class="edl-page-header">
+      <h1>Settings</h1>
+      <p>Customize your profile, appearance, and accessibility.</p>
+    </div>
+
+    <section class="card edl-animate-in">
+      <h2><i class="fas fa-user-circle"></i> Profile</h2>
+      <div class="profile-section">
+        <div class="avatar-container">
+          <img id="avatar" src="https://ui-avatars.com/api/?name=User" alt="Avatar">
+          <div class="avatar-overlay"><i class="fas fa-camera"></i></div>
+        </div>
+        <input type="file" id="avatarInput" accept="image/*">
+        <input type="text" id="displayName" placeholder="Display Name">
+        <textarea id="bio" placeholder="Tell us about yourself..."></textarea>
+      </div>
+    </section>
+
+    <section class="card edl-animate-in edl-stagger-1">
+      <h2><i class="fas fa-clock"></i> Study preferences</h2>
+      <div class="preferences-grid">
+        <div class="preference-item">
+          <label>Preferred study time
+            <select id="studyTime">
+              <option>Morning</option>
+              <option>Afternoon</option>
+              <option>Evening</option>
+            </select>
+          </label>
+        </div>
+        <div class="preference-item">
+          <label>Daily goal (hours)
+            <input type="number" id="dailyGoal" min="1" max="12" value="4">
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card edl-animate-in edl-stagger-2">
+      <h2><i class="fas fa-palette"></i> Appearance</h2>
+      <div class="theme-options">
+        <div class="theme-color">
+          <label>Primary color</label>
+          <input type="color" id="primaryColor" value="#003366">
+        </div>
+        <div class="theme-color">
+          <label>Accent color</label>
+          <input type="color" id="accentColor" value="#00aeef">
+        </div>
+      </div>
+    </section>
+
+    <section class="card edl-animate-in edl-stagger-3">
+      <h2><i class="fas fa-universal-access"></i> Accessibility</h2>
+      <div class="accessibility-options">
+        <div class="option-item">
+          <label>Font size
+            <input type="range" id="fontSize" min="14" max="24" value="16">
+            <span id="fontSizeValue">16px</span>
+          </label>
+        </div>
+        <div class="option-item">
+          <label class="toggle-switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="toggle-slider"></span>
+            Dark mode
+          </label>
+        </div>
+        <div class="option-item">
+          <label class="toggle-switch">
+            <input type="checkbox" id="contrastToggle">
+            <span class="toggle-slider"></span>
+            High contrast
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card edl-animate-in edl-stagger-4">
+      <h2><i class="fas fa-trophy"></i> Achievements</h2>
+      <div class="badges"></div>
+    </section>
+
+    <footer class="edl-settings-footer">
+      <button type="button" id="saveBtn" class="edl-btn edl-btn-primary"><i class="fas fa-save"></i> Save settings</button>
+    </footer>
+  </main>
+
+  <script src="/scripts/utils/notifications.js"></script>
+  <script src="/scripts/components/theme.js"></script>
+  <script src="/scripts/pages/settings/theme.js"></script>
+  <script src="/scripts/pages/settings/accessibility.js"></script>
+  <script src="/scripts/pages/settings/profile.js"></script>
+  <script src="/scripts/pages/settings/achievements.js"></script>
+  <script src="/scripts/pages/settings/storage.js"></script>
+  <script src="/scripts/pages/settings/index.js"></script>
+  <script src="/scripts/config/api.js"></script>
+  <script src="/scripts/utils/auth.js"></script>
+  <script src="/scripts/utils/auth-guard.js"></script>
+  <script src="/scripts/components/layout.js"></script>
+</body>
+</html>

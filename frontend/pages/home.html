@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Tracker | EduLife Companion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles/theme.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/components.css">
+</head>
+<body class="edl-app">
+
+  <div class="edl-overlay" id="edl-overlay"></div>
+
+  <aside class="edl-sidebar" id="edl-sidebar">
+    <div class="edl-sidebar-header">
+      <img class="edl-sidebar-logo" src="/assets/logo.png" alt="EduLife" />
+      <div class="edl-sidebar-title"><i class="fas fa-graduation-cap"></i> EduLife</div>
+    </div>
+    <nav class="edl-sidebar-nav">
+      <a href="landingPage.html"><i class="fas fa-th-large"></i> Dashboard</a>
+      <a href="home.html"><i class="fas fa-chart-line"></i> Study Tracker</a>
+      <a href="attendance1.html"><i class="fas fa-user-check"></i> Attendance</a>
+      <a href="pomodoro.html"><i class="fas fa-stopwatch"></i> Pomodoro</a>
+      <a href="chat.html"><i class="fas fa-comments"></i> AI Chat</a>
+      <a href="expenseTracker.html"><i class="fas fa-wallet"></i> Expenses</a>
+      <a href="timeTable.html"><i class="fas fa-calendar-alt"></i> Timetable</a>
+      <a href="reminder.html"><i class="fas fa-bell"></i> Reminders</a>
+      <a href="upload.html"><i class="fas fa-upload"></i> Documents</a>
+      <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+    <div class="edl-sidebar-footer">&copy; EduLife Companion</div>
+  </aside>
+
+  <header class="edl-topbar">
+    <div class="edl-topbar-left">
+      <button type="button" class="edl-menu-btn" id="edl-menu-btn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+      <span class="edl-topbar-brand">Study Tracker</span>
+    </div>
+    <div class="edl-topbar-right">
+      <span class="edl-user-chip" id="user-greeting"></span>
+      <button type="button" class="edl-theme-btn" data-edl-theme-toggle aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+      <a href="landingPage.html" class="edl-topbar-link"><i class="fas fa-th-large"></i><span class="link-text">Dashboard</span></a>
+      <a href="#" class="edl-topbar-link" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i><span class="link-text">Logout</span></a>
+    </div>
+  </header>
+
+  <main class="edl-main">
+    <div class="edl-page-header">
+      <h1><i class="fas fa-chart-line"></i> Study Hours</h1>
+      <p>Track your daily focus and build consistent study habits.</p>
+    </div>
+
+    <div class="edl-stats-row">
+      <div class="edl-stat-card edl-animate-in">
+        <div class="edl-stat-label">Today</div>
+        <div class="edl-stat-value"><span id="today-study">0</span> hrs</div>
+      </div>
+      <div class="edl-stat-card edl-animate-in edl-stagger-1">
+        <div class="edl-stat-label">This week</div>
+        <div class="edl-stat-value"><span id="weekly-total">0</span> hrs</div>
+      </div>
+    </div>
+
+    <div class="edl-dashboard-box edl-animate-in edl-stagger-2">
+      <h2><i class="fas fa-plus-circle"></i> Log study time</h2>
+      <div class="edl-input-row">
+        <input type="number" id="study-hours" placeholder="Hours studied" min="0" step="0.5" required>
+        <button type="button" onclick="addStudyHours()">Add hours</button>
+      </div>
+    </div>
+
+    <div class="edl-dashboard-box edl-animate-in edl-stagger-3">
+      <h2><i class="fas fa-history"></i> Recent history</h2>
+      <ul id="history-list"></ul>
+    </div>
+  </main>
+
+  <footer class="edl-footer">
+    <p>&copy; 2025 EduLife Companion. All rights reserved.</p>
+  </footer>
+
+  <script src="/scripts/config/api.js"></script>
+  <script src="/scripts/utils/auth.js"></script>
+  <script src="/scripts/components/theme.js"></script>
+  <script src="/scripts/utils/auth-guard.js"></script>
+  <script src="/scripts/components/layout.js"></script>
+  <script src="/scripts/pages/home.js"></script>
+</body>
+</html>

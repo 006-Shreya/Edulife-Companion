@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner Attendance - EduLife Companion</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F0F2F5;
+            color: #333;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #1E3C72, #2A5298);
+            padding: 15px 0;
+        }
+        .navbar-brand img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            color: #FFD700 !important;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-size: 1.1rem;
+            transition: 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #FFD700 !important;
+        }
+        .container-main {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(30,60,114,0.08);
+            padding: 32px 24px;
+        }
+        h1 {
+            color: #1E3C72;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+        #video {
+            border: 3px solid #1E3C72;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            display: block;
+            margin: 0 auto 20px auto;
+            background: #000;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1E3C72;
+        }
+        .form-inline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #1E3C72;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #FFD700;
+            color: #1E3C72;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+            border: none;
+        }
+        .btn-info:hover {
+            background-color: #117a8b;
+        }
+        footer {
+            background: linear-gradient(90deg, #003366, #2A5298);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        .attendance-list {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .student-entry {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .student-entry:last-child {
+            border-bottom: none;
+        }
+        #reader {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 20px auto;
+        }
+        .camera-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .camera-toggle {
+            margin: 10px 0;
+        }
+        .student-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        .present {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+    </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles/theme.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/components.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="/assets/logo.png" alt="EduLife Companion Logo">
+                EduLife Companion
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="landingPage.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aboutUs.html">AboutUs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-main">
+        <h1 class="text-center">Scanner Attendance System</h1>
+        
+        <!-- Registration Form -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3>Register New Student</h3>
+                <form id="registrationForm" class="form-inline">
+                    <input type="text" id="studentId" class="form-control mb-2" placeholder="Student ID" required>
+                    <input type="text" id="studentName" class="form-control mb-2" placeholder="Student Name" required>
+                    <button type="submit" class="btn btn-success">Register</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Scanner Section -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3>Mark Attendance</h3>
+                <div class="camera-container">
+                    <div id="reader"></div>
+                    <button id="toggleCamera" class="btn btn-primary camera-toggle">Start Camera</button>
+                </div>
+                <div id="scanResult" class="alert" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Student List -->
+        <div class="card">
+            <div class="card-body">
+                <h3>Student List</h3>
+                <div id="studentList" class="student-list">
+                    <!-- Student entries will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 EduLife Companion. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Store students and attendance in localStorage
+        let students = JSON.parse(localStorage.getItem('students')) || {};
+        let attendance = JSON.parse(localStorage.getItem('attendance')) || {};
+        let html5QrcodeScanner = null;
+
+        // Registration form handler
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const studentId = document.getElementById('studentId').value;
+            const studentName = document.getElementById('studentName').value;
+
+            students[studentId] = studentName;
+            localStorage.setItem('students', JSON.stringify(students));
+
+            showMessage(`Student ${studentName} registered successfully!`, 'success');
+            this.reset();
+            updateStudentList();
+        });
+
+        // Camera toggle handler
+        document.getElementById('toggleCamera').addEventListener('click', function() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.stop();
+                html5QrcodeScanner = null;
+                this.textContent = 'Start Camera';
+            } else {
+                startScanner();
+                this.textContent = 'Stop Camera';
+            }
+        });
+
+        function startScanner() {
+            html5QrcodeScanner = new Html5Qrcode("reader");
+            const config = { 
+                fps: 10, 
+                qrbox: { width: 250, height: 250 },
+                aspectRatio: 1.0
+            };
+            
+            html5QrcodeScanner.start(
+                { facingMode: "environment" },
+                config,
+                onScanSuccess,
+                onScanFailure
+            ).catch(err => {
+                showMessage('Error starting camera: ' + err, 'danger');
+            });
+        }
+
+        function onScanSuccess(decodedText, decodedResult) {
+            const studentId = decodedText.trim();
+            const today = new Date().toLocaleDateString();
+            
+            if (!attendance[today]) {
+                attendance[today] = [];
+            }
+
+            if (students[studentId]) {
+                if (!attendance[today].includes(studentId)) {
+                    attendance[today].push(studentId);
+                    localStorage.setItem('attendance', JSON.stringify(attendance));
+                    showMessage(`Attendance marked for ${students[studentId]}`, 'success');
+                    updateStudentList();
+                } else {
+                    showMessage(`${students[studentId]} already marked present`, 'warning');
+                }
+            } else {
+                showMessage('Student not found! Please register first.', 'danger');
+            }
+        }
+
+        function onScanFailure(error) {
+            // Handle scan failure silently
+            console.warn(`Scan error: ${error}`);
+        }
+
+        function showMessage(message, type) {
+            const resultDiv = document.getElementById('scanResult');
+            resultDiv.textContent = message;
+            resultDiv.className = `alert alert-${type}`;
+            resultDiv.style.display = 'block';
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function updateStudentList() {
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = '';
+            const today = new Date().toLocaleDateString();
+
+            Object.entries(students).forEach(([studentId, studentName]) => {
+                const div = document.createElement('div');
+                div.className = 'student-card';
+                if (attendance[today] && attendance[today].includes(studentId)) {
+                    div.classList.add('present');
+                }
+                div.textContent = `${studentName} (${studentId})`;
+                studentList.appendChild(div);
+            });
+        }
+
+        // Initialize student list
+        updateStudentList();
+    </script>
+<script src="/scripts/config/api.js"></script>
+<script src="/scripts/utils/auth.js"></script>
+  <script src="/scripts/components/theme.js"></script>
+<script src="/scripts/utils/auth-guard.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "edulife-companion",
+  "version": "1.0.0",
+  "description": "EduLife Companion - student life management platform",
+  "private": true,
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "cd backend && npm run dev",
+    "install:backend": "cd backend && npm install"
+  },
+  "keywords": ["education", "student", "productivity"],
+  "author": "",
+  "license": "ISC"
+}

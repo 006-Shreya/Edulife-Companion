@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker | EduLife Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles/expense-tracker.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/styles/theme.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/components.css">
+</head>
+<body>
+<div class="tracker-container">
+  <button class="reset-btn" onclick="resetTracker()">
+    <i class="fas fa-redo-alt"></i>
+    Reset All
+  </button>
+  <div class="expense-section">
+    <h2><i class="fas fa-wallet"></i> Expense Tracker</h2>
+    <div class="income-section">
+      <label for="income">Total Income (Rs): </label>
+      <input type="number" id="income" placeholder="Enter income" />
+      <button onclick="setIncome()">
+        <i class="fas fa-check"></i>
+        Set Income
+      </button>
+    </div>
+    <div class="email-section">
+      <label for="email">Your Email: </label>
+      <input type="email" id="email" placeholder="Enter your email" />
+      <button onclick="setEmail()">
+        <i class="fas fa-check"></i>
+        Save Email
+      </button>
+    </div>
+    <div class="limit-section">
+      <label for="limit">Monthly Limit (Rs): </label>
+      <input type="number" id="limit" placeholder="Set limit" />
+      <button onclick="setLimit()">
+        <i class="fas fa-check"></i>
+        Set Limit
+      </button>
+    </div>
+    <form id="expense-form">
+      <input type="text" id="desc" placeholder="Description" required />
+      <input type="number" id="amount" placeholder="Amount" required />
+      <button type="submit">
+        <i class="fas fa-plus-circle"></i>
+        Add
+      </button>
+    </form>
+    <ul class="expense-list" id="expense-list"></ul>
+    <div class="summary" id="summary"></div>
+  </div>
+  <div class="chart-section">
+    <canvas id="expenseChart"></canvas>
+  </div>
+</div>
+<script src="/scripts/config/api.js"></script>
+<script src="/scripts/pages/expense-tracker.js"></script>
+<script src="/scripts/config/api.js"></script>
+<script src="/scripts/utils/auth.js"></script>
+  <script src="/scripts/components/theme.js"></script>
+<script src="/scripts/utils/auth-guard.js"></script>
+</body>
+</html>

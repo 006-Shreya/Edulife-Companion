@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Chat - EduLife Companion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/chat.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles/theme.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/components.css">
+</head>
+<body>
+  <header>AI Chat - EduLife Companion</header>
+
+  <div class="chat-container" id="chatContainer"></div>
+
+  <div class="input-container">
+    <input type="text" id="userInput" placeholder="Type your message..." onkeydown="handleEnter(event)">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script src="/scripts/config/api.js"></script>
+  <script src="/scripts/pages/chat.js"></script>
+<script src="/scripts/config/api.js"></script>
+<script src="/scripts/utils/auth.js"></script>
+  <script src="/scripts/components/theme.js"></script>
+<script src="/scripts/utils/auth-guard.js"></script>
+</body>
+</html>
